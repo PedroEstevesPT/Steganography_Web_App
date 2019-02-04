@@ -1,0 +1,274 @@
+<html>
+<head>
+<title>The Steganographer</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" href="Steganographer.css" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+</head>
+<body>
+
+	<!-- MODAL -->
+    <div class="modal" id="interrogModal" >
+    	<div id="modalTitle" >
+    		<div style="padding-left:11%;"> THE STEGANOGRAPHER </div>
+    		<div>
+    			<img style="position:relative;top:0.0%;padding-top:2%;border-style: solid;left:23%;border-top: none;border-right:none;" id="cross" src="pics/Cross.png">
+    		</div>
+    	</div>
+    	
+    	<div>
+    		<p style = "color:white;font-weight: bold;line-height: 130%; margin: 3%;">
+			* Steganography is the practice of concealing a file, message, image, or video within
+			another file, message, image, or video.<br><br>
+			Video demonstrating the app: <a href ="https://www.youtube.com/watch?v=MftFXujlfOg" style= "color: #7FFF00;">Click Here!</a> <br><br>
+			* In this app you upload 2 pictures(.jpeg, .jpg or .png).A big one and a small one. To HIDE the small one inside the big one follow these steps:
+			<br>-->Choose Files.
+			<br>-->Check Files.
+			<br>-->Upload.
+			<br>(You will get a png with the hidden image.)<br>
+			<br>* To DISCOVER the hidden image submit the png you got from THE STEGANOGRAPHER and follow these steps:
+			<br>-->Choose File.
+			<br>-->Check File.
+			<br>-->Upload.
+			<br>(You will get a png with the image you previously hid.)	<br></p>
+		</div>
+    </div>
+
+
+    
+	<div class="head_wrapper">
+		<!-- Home Button -->
+		<div class="homeDiv" style= "padding-left: 80%;padding-top: 2%;">
+			<a href= "../index.html">
+			<img id="home" src="pics/home.png"></a></div>
+
+		<div><h1 style="font-size:350%;margin:0;"> THE STEGANOGRAPHER</h1>
+			 <h2 style="font-size:150%;text-decoration: none;color: #404040;">
+			 A web app that lets you hide your pictures inside other pictures!<br> Brought to you by
+			 <span style="color:black;">Pedro Esteves aka Muradean.<span>
+		</div>
+		<div class="question"><img id="interrog" src="pics/interrog.png"></div>
+	</div><br>
+
+	<div class="wrapper" style="">
+		<div>
+		    <h2 style=" margin:0;">Hide</h2>
+		</div>
+		<div>
+		    <h2 style=" margin:0;">Discover</h2>
+		</div>	
+		<div>
+			<form method="POST" enctype="multipart/form-data" action="hide.php" id="form1" style="padding-left: 25%; ">
+				<input type="file" id="file" name="file[]" multiple><br>
+				<input id="inputButton" type="submit" value="checkFiles" onclick='return checkValidInputs(0);'/>
+				<input id="inputButton" type="submit" value="Upload"   onclick='return uploadFile(0); ' />
+			</form>
+		</div>
+
+		<div>
+			<form method="POST" enctype="multipart/form-data" action="discover.php" id="form2" style="padding-left: 25%;">
+				<input type="file" id="file2" name="file" style= "background-color:#4169E1;"><br>
+				<input id="inputButton" type="submit" value="checkFiles" onclick='return checkValidInputs(1); 'style= "background-color:#4169E1;"/>
+				<input id="inputButton" type="submit" value="Upload" onclick='return uploadFile(1); 'style= "background-color:#4169E1;"  />
+			</form>
+		</div>
+	</div>
+	<div class="logtitle" style="position: relative; bottom:5%;">
+		<h2>LOG</h2><br>
+		<div class="log" style="font-color: #00ff00;font-family: 'VT323', monospace; font-size:250%;">
+			<p id="message"style="  overflow: auto;position:relative;bottom:15%; ">STEGANOGRAPHER: "Waiting for your photos to perform magic..."</p>
+		</div>
+	</div>
+</body>
+<script src="stegano.js"></script>
+<script src="jquery.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+
+<script>
+// your all code
+
+var filesOkHide = false;
+var filesOkDiscover = false;
+
+var interrog = false;
+
+jQuery(function($) {
+  $('#cross').click(function() {
+  	$( "#interrogModal" ).hide();
+  });
+});
+
+jQuery(function($) {
+  $('#interrog').click(function() {
+  	$( "#interrogModal" ).show();
+  });
+});
+
+
+
+
+function checkValidInputs(id) {
+	if(checkFiles(id) && checkExtensions(id)){
+		if(id == 1){
+				console.log("entrei com discover");
+
+			filesOkDiscover = true;
+			$("#message").html("STEGANOGRAPHER/DISCOVER: \"The file seems good. You can upload it!\"").css("color", '#41FF00');
+			return false;
+		}
+		else{
+		   checkDimensions();
+		   return false;
+		}
+	} 
+	return false;
+}
+
+function uploadFile(id){
+	if (id == 0 && filesOkHide) return true;
+	else if(id == 1 && filesOkDiscover) return true;
+	else{
+		if(id == 0)
+		$("#message").html("STEGANOGRAPHER/HIDE: \"The files must be checked first. Please press checkFiles.\"").css("color", "yellow");
+		if(id == 1)
+			$("#message").html("STEGANOGRAPHER/DISCOVER: \"The files must be checked first. Please press checkFiles.\"").css("color", "yellow");
+		return false;		
+	} 
+}
+
+
+function checkFiles(id){
+	if(id == 0){
+		var files = $('#file').prop("files");
+		if (files.length == 0 ){
+			$("#message").html("STEGANOGRAPHER/HIDE: \"You didn't choose any files.\"").css("color", "yellow");
+			return false;
+		}
+		else if(files.length == 1){
+			$("#message").html("STEGANOGRAPHER/HIDE: \"You chose only one file.\"").css("color", "yellow");
+			return false;
+		}
+		else if(files.length > 2){
+			$("#message").html("STEGANOGRAPHER/HIDE: \"You chose more than 2 files. Please choose only 2.\"").css("color", "yellow");
+			return false;
+		}
+	}
+	else if(id ==1){
+		var files = $('#file2').prop("files");
+		if (files.length == 0 ){
+			$("#message").html("STEGANOGRAPHER/DISCOVER: \"You didn't choose any files.\"").css("color", "yellow");
+			return false;
+		}
+	}
+	return true;
+}
+
+function checkExtensions(id){
+
+	if(id == 0)
+		var ficheiros = document.getElementById('file');
+	else 
+		var ficheiros = document.getElementById('file2');
+
+	for(var x = 0; x < ficheiros.files.length; x++){
+
+		//Se a extensao nao for a certa.
+		if(!checkExtension(ficheiros.files.item(x).name,id))
+			return false;
+	}
+	return true;	
+}
+
+function checkExtension(name,id){
+	var res = name.split(".");
+	if(id == 0 ){ 
+		if(res[1] !="jpeg" && res[1] != "jpg" && res[1] != "png"){
+			$("#message").html("STEGANOGRAPHER/HIDE: \"The extension " + res[1] + " isn't valid. Please input jpg,jpeg or png.\"" ).css("color", "yellow");
+			return false;
+		}
+	}
+	else{
+		if(res[1] != "png"){
+			$("#message").html("STEGANOGRAPHER/DISCOVER: \"The extension " + res[1] + " isn't valid. Please input a png.\"" ).css("color", "yellow");
+			return false;
+		}
+	}
+	return true;
+}
+
+
+
+function checkDimensions(){
+	checkImg();
+}
+
+function checkImg(id){
+	var files = $('#file').prop("files");
+	var pix0,pix1;
+	var img = new Image();
+	var url = URL.createObjectURL(files[0]);
+	img.src = url;
+	var w,h;
+
+	img.onload = function() {
+    // Assign image's width, height to vars
+    	pix0 = img.width * img.height;
+    	console.log(pix0);
+	    var url = URL.createObjectURL(files[1]);
+	    img.src = url;
+	    img.onload = function(){
+	    	pix1 = img.width * img.height;
+	    	console.log(pix1);
+    		if(pix1 > 3 * pix0  || pix0 > 3 * pix1){
+    			filesOkHide = true;
+    			$("#message").html("STEGANOGRAPHER/HIDE: \"Your files seem all right.\"").css('color','#41FF00');
+    		}
+    		else{
+    			$("#message").html("STEGANOGRAPHER/HIDE: \"The sizes of the images are too similar. Either choose a smaller image or a bigger image.\"").css("color", "yellow");
+
+    		}
+		return false;
+	    }	
+	}
+}
+
+
+
+
+$("#form1").submit(function(e){
+	$.ajax({
+		url: "hide.php", 
+		type: "POST",             
+		data: new FormData(this), 
+		contentType: false,       
+		cache: false,             
+		processData:false,  
+
+		success: function(data){	
+		  $("#message").html("\"Success!Your picture has been sucessfully hidden!\"").css('color','#41FF00');
+		},
+	});
+	filesOkHide = false;
+})
+
+$("#form2").submit(function(e){
+	$.ajax({
+
+		url: "discover.php", 
+		type: "POST",             
+		data: new FormData(this), 
+		contentType: false,       
+		cache: false,             
+		processData:false,          
+		success: function(data){
+			$("#message").html("Success!Your secrets have been revealed.").css('color','#41FF00');
+
+		}
+	});
+	filesOkDiscover = false;
+}) 
+
+ </script>
+</html>

@@ -1,0 +1,161 @@
+html{
+	background-image: radial-gradient(circle,#eee,#eee);
+}
+
+
+.modal{
+	border:solid;
+	font-family: 'Roboto Slab', serif;
+	z-index: 3;          /*Eu quero que quando a janela apareca ela esteja a frente de tudo*/
+	position: fixed;
+	margin: auto;
+	top:    11vh;
+	left:   8.5vw;
+	height: 78%;
+	width:  82%;
+	overflow: hidden;   /*Importante para as divs filhas nao sairem do espaco do pai*/
+	background-color: rgba(30,144,255,0.99); /*O quarto valor diz respeito a transparencia*/
+	display: none;	
+	overflow-y: auto;   /*Adiciona o scroll para ler todo o texto*/
+
+}
+
+#modalTitle{
+	color:black;
+	font-size: 260%;
+	line-height: 6vh;
+	text-align: center;
+	background-color: rgba(240,240,240,1); /*O quarto valor diz respeito a transparencia*/
+	display:grid;
+	grid-template-columns: 90% 10%;
+	grid-gap:1px;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+
+
+h1{
+	font-family: 'Roboto Slab', serif;
+	font-size:  540%;
+	text-align: center;
+}
+
+h2{
+	text-align:center;
+	font-size:  200%;
+	text-decoration: underline;
+	font-family: 'Noto Sans', sans-serif;
+	margin: 0%;
+}
+
+#inputButton{
+    background-color: #0099ff;
+	width: 10.4vw;
+}
+
+
+
+input {
+  margin: 1%;
+  width: 22vw;
+  padding: 15px 5px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  color: #fff;
+  background-color: #0099ff;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+
+}
+
+form{
+	position:relative;
+	bottom: 13%;
+
+}
+
+input:hover {background-color: #0033cc}
+
+
+img{
+	height: 6.6vh;
+	position: relative;
+	top:10%;
+	width: 4vw;
+}
+
+#home:hover{
+	content:url("pics/homeHover.png");
+
+}
+
+#interrog:hover{
+	content:url("pics/interrogHover.png");
+} 
+
+#cross:hover{
+	content:url("pics/crossHover.png");
+
+}
+
+input:active {
+  background-color: #001b4d;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.log{
+	background-color: #001b4d;
+	font-family: 'VT323', monospace;
+
+	color:#41FF00;
+	font-size:250%;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 90px;  
+  	border: 12px black;
+  	height: 35vh;
+  	margin-left:10%;
+  	margin-right: 10%;
+  	padding-left: 2%;
+  	text-align:left;
+  	border:5px solid black;
+  	border-radius: 4%;
+}
+
+.logtitle{
+	font-weight: bold;
+	text-align:center;
+
+}
+
+p{
+	font-size:140%;
+}
+
+
+.head_wrapper{
+	display:grid;
+	grid-template-columns: 20% 60% 20%;
+
+}
+
+
+.wrapper{
+	display:grid;
+	grid-template-columns: 50% 50%;
+	grid-gap:1px;
+
+}
+
+.wrapper > div{
+	padding:1em;
+}
+.wrapper > div:nth-child(odd){
+
+}
+
