@@ -1,5 +1,5 @@
 # Steganography_Web_App
-A web app that lets you hide/discover pictures inside other pictures. In the future I intend to make the algorithm more general and polish the interface.
+A web app that lets you hide/discover pictures inside other pictures. There's still a lot of polishing left to do but you can already see it working:
 
 
 - There are 2 pictures in this repo: "landscape.jpeg" and "colors.png" to provide a demonstration of the application. Just setup the app and open the html on your browser, there you can the read the instructions of the app by clicking the question mark.
